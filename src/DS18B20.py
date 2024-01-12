@@ -1,6 +1,6 @@
 import machine, onewire, ds18x20, time
  
-ds_pin = machine.Pin(16)
+ds_pin = machine.Pin(6)
  
 ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
  
