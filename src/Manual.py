@@ -1,6 +1,9 @@
-from machine import Pin
+from machine import Pin, SoftI2C
 import utime
 from neopixel import NeoPixel
+import ssd1306
+from ds3231_port import DS3231
+
 
 # 네오픽셀과 환풍기 핀 초기화
 Rled = Pin(9, Pin.OUT)
@@ -15,6 +18,12 @@ i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
 oled_width = 128
 oled_height = 64
 oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
+
+# I2C에 연결된 DS3231 초기화
+ds3231 = DS3231(i2c) 
+print('DS3231 time:', ds3231.get_time())
+
+
 
 
 # 버튼 상태를 추적하는 변수 초기화
@@ -45,12 +54,12 @@ def Rbutton_handler(pin):
     if Rbutton_state == True:
         oled.fill(0)
         oled.show()
-        oled.text('Fan On', 0, 0)
+        oled.text('Fan On', 0, 10)
         oled.show()
     else:
         oled.fill(0)
         oled.show()
-        oled.text('Fan Off', 0, 0)
+        oled.text('Fan Off', 0, 10)
         oled.show()
         
     print("Fan_state:", end =' ')
@@ -86,4 +95,15 @@ Rbutton.irq(trigger=Pin.IRQ_FALLING, handler=Rbutton_handler)
 Lbutton.irq(trigger=Pin.IRQ_FALLING, handler=Lbutton_handler)
 
 while True:
-    utime.sleep(0.1)
+    oled.fill(0)
+    current_time = ds3231.get_time()
+    formatted_time = "{:02}:{:02}".format(current_time[3], current_time[4])
+    oled.text(formatted_time, 0, 0)
+    oled.show()
+    utime.sleep(10)
+#while True:
+    #oled.fill(0)
+    #oled.show()
+    #oled.text(ds3231.get_time(), 0, 0)
+    ##utime.sleep(0.1)
+    #utime.sleep(1)
