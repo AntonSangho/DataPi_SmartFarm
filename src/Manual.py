@@ -10,6 +10,13 @@ np1 = NeoPixel(machine.Pin(15), 30)
 Rbutton = Pin(3, Pin.IN, Pin.PULL_UP)
 Lbutton = Pin(14, Pin.IN, Pin.PULL_UP)
 
+#OLED 초기화
+i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
+oled_width = 128
+oled_height = 64
+oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
+
+
 # 버튼 상태를 추적하는 변수 초기화
 Rbutton_state = False
 Lbutton_state = False
@@ -35,6 +42,17 @@ def Rbutton_handler(pin):
     global Rbutton_state
     # 버튼 상태 전환
     Rbutton_state = not Rbutton_state
+    if Rbutton_state == True:
+        oled.fill(0)
+        oled.show()
+        oled.text('Fan On', 0, 0)
+        oled.show()
+    else:
+        oled.fill(0)
+        oled.show()
+        oled.text('Fan Off', 0, 0)
+        oled.show()
+        
     print("Fan_state:", end =' ')
     print(Rbutton_state)
     Rled.value(Rbutton_state)
@@ -44,6 +62,16 @@ def Lbutton_handler(pin):
     global Lbutton_state
     # 버튼 상태 전환
     Lbutton_state = not Lbutton_state
+    if Lbutton_state == True:
+        oled.fill(0)
+        oled.show()
+        oled.text('Neopixel On', 0, 10)
+        oled.show()
+    else:
+        oled.fill(0)
+        oled.show()
+        oled.text('Neopixel Off', 0, 10)
+        oled.show()
     print("Neopixel_state:", end =' ' )
     print(Lbutton_state)
     # np_on or np off
