@@ -7,6 +7,6 @@ def networksetting():
     #return ssid, password
 
     # Home
-    ssid = 'R'
-    password = 'korea123'
+    ssid = 'showme_2.4G'
+    password = 'sangho1028'
     return ssid, password
