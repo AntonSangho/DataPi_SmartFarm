@@ -98,4 +98,3 @@ function updateValues(data) {
   sensorData.unshift(data);
   if (sensorData.length > 20) sensorData.pop();
   sensorValues.value = sensorData.join("\r\n");
-}
