@@ -1,4 +1,4 @@
-import machine
+import machine, onewire, ds18x20, time
  
 class LDR:
     def __init__(self, pin):
@@ -9,4 +9,3 @@ class LDR:
     
     def get_light_percentage(self):
         return round(self.get_raw_value()/65535*100,2)
- 
