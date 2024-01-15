@@ -1,4 +1,6 @@
 config.py
 .vscode/ # vscode 설정
 src/mywifi.py
+boot.py
+
 

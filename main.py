@@ -2,7 +2,7 @@ from microdot_asyncio import Microdot, Response, send_file
 from microdot_utemplate import render_template
 from microdot_asyncio_websocket import with_websocket
 #from ldr_photoresistor_module import LDR
-#from ldr_photoresistor_module import DS18X20 
+from ldr_photoresistor_module import DS18X20 
 import time
 import machine, onewire, ds18x20, time
 from machine import I2C, Pin
@@ -17,9 +17,9 @@ Response.default_content_type = 'text/html'
 #ldr = LDR(27)
 
 # DS18B20 module pin 6
-ds_pin = machine.Pin(6)
-ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
-roms = ds_sensor.scan() 
+#ds_pin = machine.Pin(6)
+#ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
+#roms = ds_sensor.scan() 
 
 # Connect to DS3231
 sdaPIN = Pin(4) # SDA pin
@@ -41,11 +41,11 @@ async def read_sensor(request, ws):
     while True:
         ds_sensor.convert_temp()
 #         data = await ws.receive()
-        #time.sleep(.1)
-        time.sleep_ms(750)
+        time.sleep(.1)
+        #time.sleep_ms(750)
         #await ws.send(str(ldr.get_light_percentage()))
-        await ws.send(str(ds_sensor.read_temp(roms[0])))
-        #await ws.send(str(aht20.temperature))
+        #await ws.send(str(ds_sensor.read_temp(roms[0])))
+        await ws.send(str(aht20.temperature))
         #await ws.send(str(aht20.relative_humidity))
         #await ws.send(f"DS18B20 Temp: {str}, AHT20 Temp: {aht20.temperature}, AHT20 Humidity: {aht20.relative_humidity}")
 
