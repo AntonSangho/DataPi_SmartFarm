@@ -25,6 +25,7 @@ oled_width = 128
 oled_height = 64
 oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
 
+
 # I2C에 연결된 DS3231 초기화
 ds3231 = DS3231(i2c) 
 print('DS3231 time:', ds3231.get_time())
