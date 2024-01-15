@@ -12,5 +12,11 @@ if len(devices) != 0:
     print('Number of I2C devices found=',len(devices))
     for device in devices:
         print("Device Hexadecimel Address= ",hex(device))
+        if device == 0x3c:
+            print("OLED Display")
+        elif device == 0x68:
+            print("Real Time Clock")
+        else:
+            print("Unknown Device")
 else:
     print("No device found")
