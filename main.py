@@ -2,7 +2,7 @@ from microdot_asyncio import Microdot, Response, send_file
 from microdot_utemplate import render_template
 from microdot_asyncio_websocket import with_websocket
 #from ldr_photoresistor_module import LDR
-from ldr_photoresistor_module import DS18X20 
+#from ldr_photoresistor_module import DS18X20 
 import time
 import machine, onewire, ds18x20, time
 from machine import I2C, Pin
@@ -39,7 +39,7 @@ async def index(request):
 @with_websocket
 async def read_sensor(request, ws):
     while True:
-        ds_sensor.convert_temp()
+        #ds_sensor.convert_temp()
 #         data = await ws.receive()
         time.sleep(.1)
         #time.sleep_ms(750)

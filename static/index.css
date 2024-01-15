@@ -20,7 +20,10 @@ h1 {
   margin-top: 0.4rem;
   margin-left: 1.6rem;
 }
-
+h2 {
+  margin-top: 0.4rem;
+  margin-left: 1.6rem;
+}
 .container {
   display: grid;
   width: 96%;
