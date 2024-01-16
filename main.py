@@ -5,7 +5,7 @@ from microdot_asyncio_websocket import with_websocket
 #from ldr_photoresistor_module import DS18X20 
 import time
 import machine, onewire, ds18x20, time
-from machine import I2C, Pin, SoftI2C
+from machine import I2C, Pin, SoftI2C, PWM
 from ds3231_port import DS3231
 import ahtx0
 import ssd1306
@@ -25,6 +25,12 @@ oled_width = 128
 oled_height = 64
 oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
 
+# Buzzer 초기화 
+buzzer = PWM(Pin(7))
+buzzer.freq(800)
+buzzer.duty_u16(1000)
+time.sleep(3)
+buzzer.duty_u16(0)
 
 # I2C에 연결된 DS3231 초기화
 ds3231 = DS3231(i2c) 

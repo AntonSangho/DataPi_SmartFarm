@@ -2,11 +2,18 @@
 import network
 
 # Replace the following with your WIFI Credentials
-SSID = "tresc3-2.4G"
-SSI_PASSWORD = "tresc333"
+#SSID = "tresc3-2.4G"
+#SSI_PASSWORD = "tresc333"
 
 #SSID = "showme_2.4G"
 #SSI_PASSWORD = "sangho1028"
+
+#SSID = "anton"
+#SSI_PASSWORD = "sangho1028"
+
+SSID = "5G100_2G_000EBE"
+SSI_PASSWORD = "#234567!"
+
 
 def do_connect():
     import network

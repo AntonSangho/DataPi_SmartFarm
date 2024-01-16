@@ -1,8 +1,9 @@
-from machine import Pin, SoftI2C
+from machine import Pin, SoftI2C, PWM
 import utime
 from neopixel import NeoPixel
 import ssd1306
 from ds3231_port import DS3231
+import ahtx0
 
 
 # 네오픽셀과 환풍기 핀 초기화
@@ -23,8 +24,17 @@ oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
 ds3231 = DS3231(i2c) 
 print('DS3231 time:', ds3231.get_time())
 
+# AHT20 초기화 
+#i2c=machine.I2C(0,sda=machine.Pin(I2C_SDA_PIN), scl=machine.Pin(I2C_SCL_PIN), freq=400000)
+#i2c=machine.I2C(i2c)
+sensor = ahtx0.AHT20(i2c)
 
-
+# Buzzer 초기화 
+buzzer = PWM(Pin(7))
+buzzer.freq(800)
+buzzer.duty_u16(1000)
+utime.sleep(3)
+buzzer.duty_u16(0)
 
 # 버튼 상태를 추적하는 변수 초기화
 Rbutton_state = False
@@ -52,6 +62,7 @@ def Rbutton_handler(pin):
     # 버튼 상태 전환
     Rbutton_state = not Rbutton_state
     if Rbutton_state == True:
+        # Buzzer indicator  
         oled.fill(0)
         oled.show()
         oled.text('Fan On', 0, 10)
@@ -72,6 +83,7 @@ def Lbutton_handler(pin):
     # 버튼 상태 전환
     Lbutton_state = not Lbutton_state
     if Lbutton_state == True:
+        # Buzzer indicator
         oled.fill(0)
         oled.show()
         oled.text('Neopixel On', 0, 10)
@@ -95,12 +107,14 @@ Rbutton.irq(trigger=Pin.IRQ_FALLING, handler=Rbutton_handler)
 Lbutton.irq(trigger=Pin.IRQ_FALLING, handler=Lbutton_handler)
 
 while True:
-    oled.fill(0)
-    current_time = ds3231.get_time()
-    formatted_time = "{:02}:{:02}".format(current_time[3], current_time[4])
-    oled.text(formatted_time, 0, 0)
-    oled.show()
-    utime.sleep(10)
+    #oled.fill(0)
+    #current_time = ds3231.get_time()
+    #formatted_time = "{:02}:{:02}".format(current_time[3], current_time[4])
+    #oled.text(formatted_time, 0, 0)
+    #oled.show()
+    #utime.sleep(10)
+    print(sensor.relative_humidity)
+    utime.sleep(1)
 #while True:
     #oled.fill(0)
     #oled.show()
